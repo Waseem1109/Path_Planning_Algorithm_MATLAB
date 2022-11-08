@@ -12,19 +12,19 @@ qgoal.coord = [Goal_point(1) Goal_point(2)];
 qgoal.cost =0;
 
 nodes(1) = qstart;
-% figure(1)
-% axis([0 x_max 0 y_max])
-% os=size(obstacles);
-% if os(1,1)~=0
-%     for i=1:1:os(1,1)
-%         rectangle('Position',obstacles(i,:),'FaceColor',[0 .5 .5])
-%     end
-% end
-%hold on
+ figure(1)
+ axis([0 x_max 0 y_max])
+ os=size(obstacles);
+ if os(1,1)~=0
+     for i=1:1:os(1,1)
+         rectangle('Position',obstacles(i,:),'FaceColor',[0 .5 .5])
+     end
+ end
+hold on
 
 for i=1:1:numodes
     q_rand = [floor(rand(1)*x_max) floor(rand(1)*y_max)];
-    %     plot(q_rand(1), q_rand(2), 'x', 'Color',  [0 0.4470 0.7410])
+    plot(q_rand(1), q_rand(2), 'x', 'Color',  [0 0.4470 0.7410])
     for j=1:1:length(nodes)
         if nodes(j).coord == qgoal.coord
             break
@@ -40,9 +40,9 @@ for i=1:1:numodes
     q_near=nodes(index);
     q_new.coord = steer(q_rand, q_near.coord, val, EPS);
     if noCollision(q_rand, q_near.coord, obstacles)
-%                 line([q_near.coord(1), q_new.coord(1)], [q_near.coord(2), q_new.coord(2)], 'Color', 'k', 'LineWidth', 2);
-%                 drawnow
-%                 hold on
+                 line([q_near.coord(1), q_new.coord(1)], [q_near.coord(2), q_new.coord(2)], 'Color', 'k', 'LineWidth', 2);
+                 drawnow
+                 hold on
         q_new.cost = dist(q_near.coord,q_new.coord)+q_near.cost;
         q_nearest=[];
         neighbor_count =1;
@@ -65,8 +65,8 @@ for i=1:1:numodes
             if noCollision(q_nearest(k).coord, q_new.coord, obstacles) && q_nearest(k).cost + dist(q_nearest(k).coord, q_new.coord) < C_min
                 q_min = q_nearest(k);
                 C_min = q_nearest(k).cost + dist(q_nearest(k).coord, q_new.coord);
-%                                 line([q_min.coord(1), q_new.coord(1)], [q_min.coord(2), q_new.coord(2)], 'Color', 'g');
-%                                 hold on
+                line([q_min.coord(1), q_new.coord(1)], [q_min.coord(2), q_new.coord(2)], 'Color', 'g');
+                hold on
             end
         end
         
@@ -95,8 +95,8 @@ pathi =[qgoal.coord];
 while q_end.parent ~= 0
     start = q_end.parent;
     pathi = [pathi;nodes(start).coord];
-%     line([q_end.coord(1), nodes(start).coord(1)], [q_end.coord(2), nodes(start).coord(2)], 'Color', 'r', 'LineWidth', 2);
-%     hold on
+    line([q_end.coord(1), nodes(start).coord(1)], [q_end.coord(2), nodes(start).coord(2)], 'Color', 'r', 'LineWidth', 2);
+    hold on
     q_end = nodes(start);
 end
 path =[];
